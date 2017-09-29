@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sandking.mybatis.mapper.BbsEmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.sandking.mybatis.pojo.BbsEmployee" >
+    <id column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="BIT" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+  </resultMap>
+
+
+  <!-- id:statement的id 或者叫做sql的id-->
+  <!-- parameterType:声明输入参数的类型 -->
+  <!-- resultType:声明输出结果的类型，应该填写pojo的全路径 -->
+  <!-- #{}：输入参数的占位符，相当于jdbc的？ -->
+  <select id="queryTest" parameterType="String"
+          resultType="com.sandking.mybatis.pojo.BbsEmployee">
+    SELECT * FROM `bbs_employee` WHERE username  = #{username}
+  </select>
+
+</mapper>
