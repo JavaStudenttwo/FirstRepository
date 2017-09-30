@@ -24,4 +24,43 @@
     SELECT * FROM `bbs_employee` WHERE username  = #{username}
   </select>
 
+  <select id="query1" parameterType="String"
+          resultType="com.sandking.mybatis.pojo.BbsEmployee">
+    SELECT * FROM `bbs_employee` WHERE username LIKE #{username}
+  </select>
+
+  <select id="query2" parameterType="String"
+          resultType="com.sandking.mybatis.pojo.BbsEmployee">
+    SELECT * FROM `bbs_employee` WHERE username LIKE '%${value}%'
+  </select>
+
+  <insert id="insert" parameterType="com.sandking.mybatis.pojo.BbsEmployee">
+
+    <!-- selectKey 标签实现主键返回 -->
+    <!-- keyColumn:主键对应的表中的哪一列 -->
+    <!-- keyProperty：主键对应的pojo中的哪一个属性 -->
+    <!-- order：设置在执行insert语句前执行查询id的sql，孩纸在执行insert语句之后执行查询id的sql -->
+    <!-- resultType：设置返回的id的类型 -->
+    <selectKey keyColumn="id" keyProperty="id" order="AFTER"
+               resultType="int">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    INSERT INTO `bbs_employee`
+    (username,password) VALUES
+    (#{username},#{password})
+
+  </insert>
+
+  <insert id="update" parameterType="com.sandking.mybatis.pojo.BbsEmployee">
+    UPDATE  `bbs_employee` SET
+    password = #{password} WHERE id = #{id}
+
+  </insert>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM `bbs_employee` WHERE id = #{id}
+  </delete>
+
+
+
 </mapper>

@@ -21,6 +21,33 @@ public class BbsEmployee {
 
     private Boolean isDel;
 
+    private int id;
+
+    @Override
+    public String toString() {
+        return "BbsEmployee{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", degree='" + degree + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", phone='" + phone + '\'' +
+                ", realName='" + realName + '\'' +
+                ", school='" + school + '\'' +
+                ", isDel=" + isDel +
+                ", id=" + id +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
