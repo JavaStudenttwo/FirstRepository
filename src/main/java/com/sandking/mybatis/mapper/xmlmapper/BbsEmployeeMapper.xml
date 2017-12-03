@@ -19,9 +19,17 @@
   <!-- parameterType:声明输入参数的类型 -->
   <!-- resultType:声明输出结果的类型，应该填写pojo的全路径 -->
   <!-- #{}：输入参数的占位符，相当于jdbc的？ -->
-  <select id="queryTest" parameterType="String"
+  <select id="queryTest" parameterType="com.sandking.mybatis.pojo.BbsEmployee"
           resultType="com.sandking.mybatis.pojo.BbsEmployee">
-    SELECT * FROM `bbs_employee` WHERE username  = #{username}
+    SELECT * FROM `bbs_employee`
+    <where>
+      <if test="username != null and username !=''">
+        AND username  LIKE #{username}
+      </if>
+      <if test="password != null and password !=''">
+        AND password LIKE #{password}
+      </if>
+    </where>
   </select>
 
   <select id="query1" parameterType="String"
@@ -46,8 +54,8 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     INSERT INTO `bbs_employee`
-    (username,password) VALUES
-    (#{username},#{password})
+    (username,password,isDel) VALUES
+    (#{username},#{password},#{isDel})
 
   </insert>
 
@@ -61,6 +69,18 @@
     DELETE FROM `bbs_employee` WHERE id = #{id}
   </delete>
 
+  <select id="query3" parameterType="com.sandking.mybatis.pojo.BbsEmployee"
+          resultType="com.sandking.mybatis.pojo.BbsEmployee">
+    <include refid="select"/>
+    WHERE
+    <foreach collection="ids" item="id" open="id IN (" close=")"
+             separator=",">
+      #{id}
+    </foreach>
+  </select>
 
+  <sql id="select">
+    SELECT * FROM `bbs_employee`
+  </sql>
 
 </mapper>

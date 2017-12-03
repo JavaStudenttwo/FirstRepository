@@ -1,5 +1,7 @@
 package com.sandking.mybatis.pojo;
 
+import java.util.List;
+
 public class BbsEmployee {
     private String username;
 
@@ -22,6 +24,24 @@ public class BbsEmployee {
     private Boolean isDel;
 
     private int id;
+
+    private List<String> ids;
+
+    public Boolean getDel() {
+        return isDel;
+    }
+
+    public void setDel(Boolean del) {
+        isDel = del;
+    }
+
+    public List<String> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<String> ids) {
+        this.ids = ids;
+    }
 
     @Override
     public String toString() {

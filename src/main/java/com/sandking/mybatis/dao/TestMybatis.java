@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestMybatis {
 
@@ -27,8 +29,12 @@ public class TestMybatis {
     @Test
     public void testQuery(){
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        BbsEmployee bbsEmployee = sqlSession.selectOne("queryTest","a");
-        System.out.println(bbsEmployee.getUsername());
+        BbsEmployee employee = new BbsEmployee();
+        employee.setUsername("%ad%");
+        employee.setPassword("%1%");
+        BbsEmployee bbsEmployee = sqlSession.selectOne("queryTest",employee);
+
+        System.out.println(bbsEmployee);
         sqlSession.close();
 
     }
@@ -58,6 +64,7 @@ public class TestMybatis {
         BbsEmployee bbsEmployee = new BbsEmployee();
         bbsEmployee.setUsername("sisisi");
         bbsEmployee.setPassword("123");
+        bbsEmployee.setIsDel(true);
 
 
         sqlSession.insert("insert",bbsEmployee);
@@ -95,6 +102,24 @@ public class TestMybatis {
     }
 
 
+    @Test
+    public void query3(){
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        BbsEmployee employee = new BbsEmployee();
+        List<String> list = new ArrayList<String>();
+        list.add("1");
+        list.add("2");
+        list.add("4");
+        list.add("5");
+        employee.setIds(list);
+        List<BbsEmployee> list1 = sqlSession.selectList("query3",employee);
+        for (BbsEmployee e:list1) {
+            System.out.println(e);
+        }
+
+        sqlSession.close();
+
+    }
 
 
 
